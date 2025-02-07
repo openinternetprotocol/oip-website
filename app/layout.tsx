@@ -1,4 +1,5 @@
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
+import React from 'react'
 import { Banner, Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
@@ -15,11 +16,10 @@ const navbar = (
     // ... Your additional navbar options
   />
 )
-// const footer = <Footer>MIT {new Date().getFullYear()} © Open Internet Protocol, a protocol by Portrait Technology Inc.</Footer>
- const footer = <Footer></Footer>
-export default async function RootLayout({ children }) {
-  const pageMap = await getPageMap()
+const footer = <Footer>MIT {new Date().getFullYear()} © Open Internet Protocol, a protocol by Portrait Technology Inc.</Footer>
 
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const pageMap = await getPageMap()
   return (
     <html
       // Not required, but good for SEO
