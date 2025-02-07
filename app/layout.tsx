@@ -1,6 +1,6 @@
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
 import React from 'react'
-import { Banner, Head } from 'nextra/components'
+import { Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
  
@@ -32,7 +32,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <Head faviconGlyph="✨"/>
       <body>
         <Layout
-          // banner={banner}
           navbar={navbar}
           sidebar={{autoCollapse: false, defaultOpen: false}}
           pageMap={pageMap}
