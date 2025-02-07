@@ -9,7 +9,7 @@ export const metadata = {
   // For more information on metadata API, see: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
 }
  
-const banner = <Banner storageKey="some-key">Nextra 4.0 is released 🎉</Banner>
+// const banner = <Banner storageKey="some-key">Nextra 4.0 is released 🎉</Banner>
 const navbar = (
   <Navbar
     logo={<b>Open Internet Protocol</b>}
@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <Head faviconGlyph="✨"/>
       <body>
         <Layout
-          banner={banner}
+          // banner={banner}
           navbar={navbar}
           sidebar={{autoCollapse: false, defaultOpen: false}}
           pageMap={pageMap}
