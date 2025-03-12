@@ -1,0 +1,148 @@
+import { FileTree, Table, Callout } from 'nextra/components'
+
+# Smart Contracts
+The Open Internet Protocol (OIP) utilizes Ethereum-based smart contracts to securely manage essential operations, including user identity management, application definitions, access control, and node interactions. These onchain contracts ensure verifiable interoperability and trust, enabling seamless user experiences across different applications built on OIP.
+
+---
+
+## Motivation
+Given the ephemeral nature of offchain data in OIP, OIP's onchain contracts provide a persistent layer of critical data. This persistence ensures that key identity and authorization states remain reliably accessible and verifiable, even if offchain nodes prune data or experience outages. Authentication and identity control remain fully self-sovereign through Ethereum's externally owned accounts (EOAs), empowering users with absolute control and autonomy over their digital identities.
+
+OIP smart contracts emphasize modularity and flexibility. They separate identities and node identifiers from users' wallet addresses, enhancing user experience through features like delegation and background execution of transactions. This design allows applications to offload authentication tasks from the user-facing interface, enabling delegated actions and efficient background execution.
+
+## Contracts
+<FileTree>
+  <FileTree.Folder name="Core" defaultOpen>
+    <FileTree.File name="OIPAppRegistry.sol"/>
+    <FileTree.File name="OIPIdRegistry.sol" />
+    <FileTree.File name="OIPNameRegistry.sol" />
+    <FileTree.File name="OIPAccessRegistry.sol" />
+    <FileTree.File name="OIPNodeRegistry.sol" />
+  </FileTree.Folder>
+      <FileTree.Folder name="Libraries and utils" defaultOpen>
+      <FileTree.File name="OIPSigValidator.sol" />
+      <FileTree.File name="UniversalSigValidator.sol" />
+    </FileTree.Folder>
+
+</FileTree>
+
+<Callout type="info">
+Parts of the Portrait Protocol are currently being migrated to the Open Internet Protocol and planned to complete in Q2 2025. Read more about the migration [here](https://portrait.so).
+</Callout>
+
+### Core Contracts
+The core contracts are responsible for managing the core interactions between users and OIP.
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Contract</Table.Th>
+      <Table.Th>Objective</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>``OIPAppRegistry.sol``</Table.Td>
+      <Table.Td>A global registry managing the unique identifiers, versions and messaging standards for apps built on OIP.</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>``OIPIdRegistry.sol``</Table.Td>
+      <Table.Td>A global registry managing OIP identities and their associated data.</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>``OIPNameRegistry.sol``</Table.Td>
+      <Table.Td>A global registry managing human-readable names linked to OIP identities.</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>``OIPAccessRegistry.sol``</Table.Td>
+      <Table.Td>A global registry managing delegation and access control policies for OIP identities.</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>``OIPNodeRegistry.sol``</Table.Td>
+      <Table.Td>A global registry managing edge node addresses linked to OIP identities.</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+### Libraries and Utils
+The libraries and utils are used by the core contracts to provide additional functionality and security.
+
+<Table>
+  <thead>
+    <Table.Tr>
+      <Table.Th>Contract</Table.Th>
+      <Table.Th>Objective</Table.Th>
+    </Table.Tr>
+  </thead>
+  <tbody>
+    <Table.Tr>
+      <Table.Td>``OIPSigValidator.sol``</Table.Td>
+      <Table.Td>Library for validating signatures on OIP messages.</Table.Td>
+    </Table.Tr>
+    <Table.Tr>
+      <Table.Td>``UniversalSigValidator.sol``</Table.Td>
+      <Table.Td>Validates account abstraction signatures, forked from the [EIP-6492](https://eips.ethereum.org/EIPS/eip-6492) standard.</Table.Td>
+    </Table.Tr>
+  </tbody>
+</Table>
+
+### Deployments
+All contracts have been deployed on the [Base Sepolia](https://sepolia.basescan.org/) testnet.
+
+<Table>
+    <thead>
+        <Table.Tr>
+        <Table.Th>Contract</Table.Th>
+        <Table.Th>Address</Table.Th>
+        </Table.Tr>
+    </thead>
+    <tbody>
+        <Table.Tr>
+        <Table.Td>``OIPAppRegistry.sol``</Table.Td>
+        <Table.Td>Q2 2025</Table.Td>
+        </Table.Tr>
+        <Table.Tr>
+        <Table.Td>``OIPIdRegistry.sol``</Table.Td>
+        <Table.Td>[0x3cDc03BEb79ba3b9FD3b687C67BFDE70AFf46eBF](https://sepolia.basescan.org/address/0x3cDc03BEb79ba3b9FD3b687C67BFDE70AFf46eBF)</Table.Td>
+        </Table.Tr>
+        <Table.Tr>
+        <Table.Td>``OIPNameRegistry.sol``</Table.Td>
+        <Table.Td>[0xc788716466009AD7219c78d8e547819f6092ec8F](https://sepolia.basescan.org/address/0xc788716466009AD7219c78d8e547819f6092ec8F)</Table.Td>
+        </Table.Tr>
+        <Table.Tr>
+        <Table.Td>``OIPAccessRegistry.sol``</Table.Td>
+        <Table.Td>[0xa837e9C834f23b04061b901814Af872291883ee7](https://sepolia.basescan.org/address/0xa837e9C834f23b04061b901814Af872291883ee7)</Table.Td>
+        </Table.Tr>
+        <Table.Tr>
+        <Table.Td>``OIPNodeRegistry.sol``</Table.Td>
+        <Table.Td>[0x935f45e99eA6EeFE4C86845C996e27630b31C5Bb](https://sepolia.basescan.org/address/0x935f45e99eA6EeFE4C86845C996e27630b31C5Bb)</Table.Td>
+        </Table.Tr>
+    </tbody>
+</Table>
+
+<Table>
+    <thead>
+        <Table.Tr>
+        <Table.Th>Contract</Table.Th>
+        <Table.Th>Address</Table.Th>
+        </Table.Tr>
+    </thead>
+    <tbody>
+        <Table.Tr>
+        <Table.Td>``OIPSigValidator.sol``</Table.Td>
+        <Table.Td>[0xD2407EBde1B1ffE19da02710446f1449C0669Df2](https://sepolia.basescan.org/address/0xD2407EBde1B1ffE19da02710446f1449C0669Df2)</Table.Td>
+        </Table.Tr>
+        <Table.Tr>
+        <Table.Td>``UniversalSigValidator.sol``</Table.Td>
+        <Table.Td>[0xEE5542f87475A5F08d1450941c6a4470FbE7949E](https://sepolia.basescan.org/address/0xEE5542f87475A5F08d1450941c6a4470FbE7949E)</Table.Td>
+        </Table.Tr>
+    </tbody>
+</Table>
+
+## Open Source
+To ensure transparency and security, the smart contracts are licensed under the MIT License. The contracts are available on [GitHub](https://github.com/portraitgg/portrait-contracts-public).
+
+## Modularity and Upgradability
+The contracts are designed to be modular and upgradable. The core contracts follow the [UUPS](https://eips.ethereum.org/EIPS/eip-1822) standard, allowing for easy upgrades and maintenance. Furthermore, the contracts are compliant with account abstraction, building on top of the [EIP-6492](https://eips.ethereum.org/EIPS/eip-6492) standard.
+
+

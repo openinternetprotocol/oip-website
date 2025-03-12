@@ -1,0 +1,33 @@
+# Safety Nets
+As OIP remains in an early developmental phase, specific security measures and temporary limitations are in place to safeguard data integrity and facilitate controlled testing and iteration.
+
+---
+
+## Current Safety and Security Measures
+
+### Smart Contract Deployment
+
+- **Testnet Deployment:** All OIP smart contracts are currently deployed on the Base Sepolia testnet.
+- **Controlled Registration Period:** The OIP Identity Registry is currently in a controlled registration period (`isControlledRegistrationPeriod()`), during which only authorized entities—typically the development team—can register new identities. This approach enables systematic testing and monitoring, and will transition towards open registration upon protocol maturity.
+- **Sybil Resistance:** Fees are applied during username and OIP app registrations to ensure Sybil resistance. Applications building on OIP may be eligible to receive these collected funds by reaching out to the core development team.
+
+## Hosting and Caching Nodes
+
+OIP incorporates a decentralized caching layer operated by network participants (edge nodes). These nodes locally cache data and periodically submit cryptographic proofs verifying their data holdings, maintaining network availability even during relay node outages or data pruning.
+
+- **Relay Node Fleet:** The core development team currently operates a dedicated fleet of relay nodes utilizing Waku's peer-to-peer network. Builders and application developers are advised to deploy their own relay nodes to further enhance network resilience and autonomy.
+- **Edge Node Contribution:** Users of applications built on OIP act as edge nodes, caching and providing data locally, significantly contributing to the overall reliability and availability of data.
+
+As network adoption increases, the aggregated availability from participating edge nodes ensures persistent and reliable data accessibility, potentially reducing reliance on dedicated relay infrastructure.
+
+## Content Topic Management
+
+During the testing and stabilization phases, builders are advised to append the `_testnet` postfix to their content topics to clearly separate testing data from production data. This practice helps maintain the integrity and clarity of network content topics during development.
+
+## State Management and Data Availability
+
+OIP advises developers to maintain a parallel state ledger using either smart contracts or traditional databases to ensure consistent and reliable state synchronization. However, it is important to note that OIP itself is not intended as a permanent ledger. Instead, it functions as a democratic system designed to retain data as long as there is active demand for it. This dynamic approach balances data availability with efficiency and resource management.
+
+## Transferability of Data and Identities
+
+A OIP user's digital identity and associated data are fully portable and self-sovereign, and transferable as an ERC-721 token. During the controlled registration period, users can request the core development team to transfer their identity and associated data to a new address. It is not possible to transfer ownership of an identity during the controlled registration period.

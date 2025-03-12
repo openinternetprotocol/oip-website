@@ -1,0 +1,84 @@
+# Content Addressing
+
+The Open Internet Protocol (OIP) employs **Content Addressing**, a core principle enabling data referencing through cryptographic hashes rather than location-based identifiers. By utilizing InterPlanetary Linked Data (IPLD), OIP ensures decentralized, robust, and verifiable data storage and communication across its peer-to-peer network.
+
+## Data Model
+
+OIP uses the [IPLD](https://ipld.io) model to construct universally addressable and verifiable data structures. Data items within OIP are cryptographically hashed and represented as [Content Identifiers (CIDs)](https://docs.ipfs.tech/concepts/content-addressing/).
+
+### Content Identifiers (CIDs)
+
+OIP employs IPLD-compliant CIDs (version 1), incorporating:
+
+- **Multibase:** Specifies CID serialization format, typically base32 for text representation.
+- **Multicodec:** Indicates data format, primarily:
+  - **`dag-cbor` (0x71)** for structured, authenticated data.
+  - **`raw` (0x55)** for binary data like images or documents.
+- **Multihash:** Identifies the hashing algorithm; currently, OIP favors SHA-256.
+
+Example CID (base32 encoded):
+```
+bafyreib4lnktj3cv7g2rhhqzpjit6j7zse7zrsn6qfrk7y7hqcf6gt2c44
+```
+
+## Importance of Content Addressing in OIP
+
+Content addressing solves critical problems associated with traditional location-based addressing:
+
+- **Immutability:** Data integrity is guaranteed as any modification alters the CID.
+- **Deduplication:** Repeated data blocks share the same CID, greatly optimizing storage and bandwidth.
+- **Verification:** Cryptographic hashes validate data authenticity without depending on trusted intermediaries.
+- **Decentralization and Offline Accessibility:** Supports decentralized, offline-first architectures and resilient data availability.
+
+## Integration with Waku Messages
+
+OIP leverages [Waku](https://waku.org) for decentralized peer-to-peer messaging. Waku messages encapsulate data payloads and metadata, and due to implemented [cryptography](/cryptography), assuring tamper-proof messages, it's crucial to reference persistent data via CID rather than volatile location-based identifiers such as HTTP URLs or application-specific routes.
+Beyond tamper-proof messages, a message transmitted via Waku has a `maxMessageSize` of 150KB, meaning the maximum message size that is allowed. [It is recommended by Waku to average around 4KB per message](https://github.com/vacp2p/rfc-index/blob/main/waku/standards/core/64/network.md#message-size).
+
+In practice, this means that within a Waku message:
+
+- Instead of referencing external data directly, applications should include CID references pointing to external data stored in decentralized storage, ensuring reliability and verifiability even if Waku relay nodes prune data or go offline.
+
+
+### Practical Scenario Examples
+
+Consider a decentralized social application called **SocialGraph**, built using OIP:
+
+- **Profile Pictures:** Instead of storing profile images within a Waku message payload or referencing an AWS S3 endpoint, SocialGraph references profile images by CID:
+
+  ```json
+  {
+    "profileImage": {
+      "cid": "bafyreib4lnktj3cv7g2rhhqzpjit6j7zse7zrsn6qfrk7y7hqcf6gt2c44"
+    }
+  }
+  ```
+
+- **User Posts:** Each user post, potentially including media files, is stored externally and referenced via CID, enabling efficient message propagation and reliable retrieval:
+
+  ```json
+  {
+    "postContent": "Check out my new photo!",
+    "media": {
+      "cid": "bafkreib4lnktj3cv7g2rhhqzpjit6j7zse7zrsn6qfrk7y7hqcf6gt2c44"
+    }
+  }
+  ```
+
+### CID-based Referencing Benefits
+
+- **Persistent Availability:** Ensures referenced content remains accessible regardless of transient network conditions.
+- **Data Portability:** Allows seamless sharing and referencing across different OIP-compatible applications.
+- **Efficient Network Use:** Minimizes bandwidth usage, as large files are fetched only when explicitly requested via their CID.
+
+## Constraints and Recommendations
+
+- **Normalization:** Strict DAG-CBOR normalization rules ensure consistent cryptographic hashing and data integrity.
+- **Avoid Floating Point Numbers:** Due to encoding non-determinism, floats are disallowed in OIP schemas.
+
+## Redundancy and Data Availability
+It is advised to maintain multiple copies of critical data across different storage providers or IPFS nodes to ensure data availability and resilience against single points of failure. It is possible to leverage IPLD without relying solely on IPFS, as long as you verify the data's integrity and availability through CIDs on the client side with libraries such as [multiformats](https://www.npmjs.com/package/multiformats). For example, [Irys](https://docs.irys.xyz/build/d/features/ipfs-cid) offers decentralized storage and content addressing services, providing an alternative to IPFS for data storage and retrieval.
+
+## Security Considerations
+
+Always use IPLD-compliant libraries with robust safeguards against resource exhaustion and maliciously crafted data structures. Libraries should rigorously validate CIDs and protect against invalid encodings, deep nesting, and large allocations.

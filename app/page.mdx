@@ -1,27 +1,50 @@
-import { Callout, Cards } from 'nextra/components'
-import { IconSparkles, IconTool, IconListTree, IconBook } from '@tabler/icons-react';
-
-# The Open Internet Protocol
-
-<Callout type="info">
-  **The Open Internet Protocol is currently in early stages of development.**
-</Callout>
+import { Cards, Callout } from 'nextra/components'
+import { IconTorii, IconBook, IconHelpOctagon, IconChisel, IconLayout, IconBackhoe, IconPuzzle } from '@tabler/icons-react';
+import Video from 'next-video';
+import oipVideo from '../videos/oip_short.mp4.json';
 
  
- The Open Internet Protocol (OIP) is an open social protocol where every application user actively contributes to maintaining and expanding the shared state of the application they participate in.
 
-### The Open Internet Protocol (OIP) 
+# Welcome to the Open Internet Protocol
+The Open Identity Protocol (OIP) is an open-source decentralized protocol designed to support the creation of scalable, censorship-resistant, and privacy-preserving social applications. OIP combines an onchain layer—implemented through Ethereum-based smart contracts—with an offchain peer-to-peer network composed of relay and edge nodes. This hybrid approach provides both robust security assurances and practical scalability.
 
-The Open Internet Protocol (OIP) is an open social protocol where every application user actively contributes to maintaining and expanding the shared state of the application they participate in. By distributing responsibility for data storage and transmission across all users, OIP eliminates reliance on centralized infrastructure, creating a **scalable, lightweight, and self-sustaining** peer-to-peer network.  
+At the core of OIP are smart contracts that define identity management, application-specific metadata, and verifiable data integrity. These onchain contracts underpin identity interoperability, allowing users of apps built on OIP to seamlessly transition between applications while preserving their digital identity and social graph.
 
-##### OIP is built on four pillars:
-1. OIP is permissionless, distributed, censorship-resistant, tamper-proof, and privacy-focused.
-2. Every user of an application built on OIP contributes to its infrastructure without significant hardware overhead.
-3. Every user's participation is quantified as social capital: constructive contributions elevate their measurable reputation within the network—reinforcing security and resilience—while disruptive actions correspondingly reduce it, thereby aligning individual incentives with the collective integrity of the system.
-4. Every user's digital identity and data remain fully portable and self‑sovereign, ensuring seamless interoperability and preserving autonomy across decentralized applications.
+A distinguishing feature of OIP, not present in comparable decentralized protocols like Nostr, ATProto, and Farcaster, is its extensive use of edge-node caching. Relay nodes in decentralized networks often prune data due to storage constraints or experience downtime, potentially compromising data availability. OIP addresses this issue by enabling users of apps built on OIP to participate as edge nodes, caching and re-serving content to the network. This decentralized caching mechanism significantly enhances data resilience, availability, and overall network sustainability.
 
-#### Development Background
+Moreover, OIP is structured to encourage self-sufficiency at the application level. Unlike protocols that depend on centralized relays or hubs with prohibitive operational costs, OIP's lightweight architecture ensures applications remain accessible, independent, and operationally efficient, regardless of their scale.
 
-The Open Internet Protocol (OIP) originated as a core component during the development of [Portrait](https://portrait.so), a decentralized social identity platform. In addressing the challenges inherent in building a truly decentralized social infrastructure, our team discovered that the underlying protocol offered capabilities far beyond its initial application within Portrait. Recognizing this, we have chosen to evolve OIP into a standalone, open-source project.
+ <Video src={oipVideo} />
 
-OIP is released under the MIT License, inviting collaboration from the global community to further refine and expand its capabilities. Our goal is to foster an environment where innovation in decentralization can flourish, ultimately empowering users and developers alike to build the next frontier of open, distributed networks.
+<Callout type="info">
+Parts of the Portrait Protocol are currently being migrated to the Open Internet Protocol and planned to complete in Q2 2025. Read more about the migration [here](https://portrait.so).
+</Callout>
+
+### Continue reading
+
+ <Cards>
+  <Cards.Card
+    title="Fundamentals"
+    href="/fundamentals"
+    icon={<IconTorii />}
+    arrow
+  />
+  <Cards.Card
+    title="Core Concepts"
+    href="/stack/getting-started"
+    icon={<IconPuzzle />}
+    arrow
+  />
+    <Cards.Card
+    title="Specs"
+    href="/specs/messaging"
+    icon={<IconBook />}
+    arrow
+  />
+  <Cards.Card
+    title="Building on OIP"
+    href="/dev-getting-started"
+    icon={<IconBackhoe />}
+    arrow
+  />
+</Cards>

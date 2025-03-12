@@ -1,0 +1,63 @@
+.nextra-search {
+    display: none;
+  }
+
+
+  p, ul, li, tr, body, td {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: #eeeeee;
+  }
+
+  table {
+    margin-top: 2rem;
+  }
+  
+  h2 {
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  h5 {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  b {
+    font-weight: 500;
+  }
+
+  main > ul > li {
+    /* margin: 1rem 0; */
+    list-style-type: '✢ ';
+    }
+
+  
+
+  article {
+    margin: 0 auto;
+    max-width: 775px;;
+    padding: 1rem;
+    padding-top: 3rem;
+  }
+
+  .nextra-card > span > svg:where(.dark *) {
+    color: 
+color-mix(in oklab, var(--x-color-white) 100%, transparent);
+}

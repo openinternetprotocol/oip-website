@@ -1,0 +1,84 @@
+import { Cards, Image } from 'nextra/components'
+
+
+# FAQ
+The OIP FAQ is a collection of useful questions and answers about the
+protocol. If you have a question that isn't answered here, please
+[open an issue](https://github.com/openinternetprotocol/oip-website/issues).
+
+--- 
+
+<details>
+  <summary>How is OIP different from existing decentralized social protocols such as Nostr, Farcaster, and AT Protocol?</summary>
+  OIP introduces edge-node caching at the client level, enabling devices—including mobile clients—to cache and serve data back into the network. This ensures high data availability and resilience even if relay nodes experience downtime or prune infrequently accessed data. Unlike protocols such as Nostr, Farcaster, or AT Protocol, OIP decentralizes not only data storage but also the responsibility for data availability, significantly enhancing overall network robustness.
+</details>
+
+<details>
+  <summary>What exactly is an "edge node" in the context of OIP?</summary>
+  An edge node is a lightweight participant in the OIP network—often operated by application clients on everyday devices like smartphones or laptops. Edge nodes cache data locally and supply this cached content to other network participants when relay nodes are unreachable or when requested data has been pruned from relay storage. This edge-node caching mechanism is a distinctive feature of OIP, greatly improving network availability and resilience.
+</details>
+
+<details>
+  <summary>How does OIP incentivize participation in the network?</summary>
+  OIP is built around the concept of social capital, where users' constructive participation contributes directly to their measurable reputation within the network. Users of apps built on OIP enhance their social capital by reliably caching and serving data, thereby aligning individual rational interests with the collective good of the protocol. This reputation-based incentive structure ensures active participation without relying solely on altruism, fostering long-term network sustainability.
+</details>
+
+<details>
+  <summary>Why does OIP use both onchain and offchain components?</summary>
+  OIP employs a hybrid architecture with onchain smart contracts and offchain relay and edge nodes to achieve an optimal balance of scalability, security, and interoperability. The onchain layer provides verifiable identity management, application standards, and data integrity guarantees, while the offchain peer-to-peer networking layer efficiently manages the high message throughput essential for social applications. This design enables applications to scale naturally without compromising decentralization or trust.
+</details>
+
+<details>
+  <summary>What makes OIP's digital identity interoperable?</summary>
+  OIP uses Ethereum-based smart contracts for identity management, allowing user identities and associated social graphs to be portable across all applications built on OIP. Users of apps built on OIP maintain full control over their digital identity, ensuring seamless transitions between different platforms and eliminating vendor lock-in. This ensures user autonomy, flexibility, and ecosystem-wide interoperability.
+</details>
+ 
+ <details>
+  <summary>How does OIP handle malicious or faulty (Byzantine) nodes?</summary>
+  OIP leverages cryptographic techniques, reputation systems, and Byzantine fault-tolerant consensus mechanisms to handle malicious or faulty nodes. Misbehaving nodes lose social capital, reducing their influence and participation capabilities within the network. This structured penalty system ensures network integrity and discourages malicious behaviors.
+</details>
+
+<details>
+  <summary>Can low-resource devices like browsers meaningfully contribute to OIP?</summary>
+  Yes. OIP is designed with a tiered participation model, enabling even minimal-resource devices, such as web browsers, to temporarily cache and provide data. These clients contribute to data availability without significant overhead, ensuring wide accessibility and participation across diverse device capabilities.
+</details>
+
+<details>
+  <summary>Is OIP dependent on altruistic user participation?</summary>
+  No. OIP explicitly recognizes that purely altruistic participation isn't sustainable at scale. Instead, it employs a reputation-based social capital system that rewards rational, constructive contributions, aligning users' individual incentives with collective network sustainability.
+</details>
+
+<details>
+  <summary>What are the primary responsibilities of relay nodes in OIP?</summary>
+  Relay nodes in OIP facilitate the efficient propagation of messages across the network. They forward messages without necessarily storing extensive historical data, relying on edge nodes for additional caching. This design reduces their operational burden, enhancing network efficiency and scalability.
+</details>
+
+<details>
+  <summary>Does OIP require users to run dedicated infrastructure?</summary>
+  No. OIP is designed so that participation in infrastructure maintenance occurs naturally as users interact with applications. By integrating lightweight edge-node capabilities into standard app clients, users automatically contribute to data caching and availability, eliminating the need for specialized infrastructure.
+</details>
+
+<details>
+  <summary>How does OIP handle media or larger data files?</summary>
+  Messages in OIP are optimized to be small (typically sub-1KB). Larger media files or data objects are referenced by content identifiers (CIDs) and stored separately in content-addressable networks such as IPFS. This approach ensures efficient propagation of messages across the network without unnecessary bandwidth usage.
+</details>
+
+<details>
+  <summary>What makes OIP resistant to censorship?</summary>
+  OIP achieves censorship resistance through decentralized, peer-to-peer distribution of data and the absence of centralized points of control. Content is cached and served by a large number of edge nodes and relays, ensuring no single entity or small group can effectively restrict access or alter information integrity.
+</details>
+
+<details>
+  <summary>Can OIP operate sustainably at scale without a native token?</summary>
+  Yes. OIP does not require a native token to incentivize participation. Instead, it relies on a reputation-based incentive model—social capital—where contributions are rewarded through increased trust and visibility within the network. This model fosters sustainable growth without economic complexity or token-related governance challenges.
+</details>
+
+<details>
+  <summary>What kind of cryptographic techniques does OIP use to ensure data integrity?</summary>
+  OIP employs cryptographic hashes and signatures to ensure data integrity and authenticity. Content-addressed storage techniques (such as those inspired by IPLD) and digital signatures prevent tampering and verify the authenticity of messages, maintaining trust and transparency across the network.
+</details>
+
+<details>
+<summary>When will Portrait IDs be migrated to OIP IDs?</summary>
+  Portrait IDs are expected to be migrated to OIP IDs in Q2 2025. 
+</details>

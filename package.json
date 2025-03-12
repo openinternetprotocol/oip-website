@@ -10,20 +10,34 @@
   },
   "dependencies": {
     "@tabler/icons": "^3.29.0",
-    "@tabler/icons-react": "^3.29.0",
+    "@tabler/icons-react": "^3.31.0",
     "next": "15.1.6",
+    "next-video": "^2.1.0",
     "nextra": "^4.2.3",
     "nextra-theme-docs": "^4.2.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-player": "^2.16.0",
+    "video.js": "^8.22.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.21.0",
     "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/react": "^19.0.10",
     "@types/react-dom": "^19",
-    "eslint": "^9",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "eslint": "^9.21.0",
     "eslint-config-next": "15.1.6",
-    "typescript": "^5"
+    "eslint-config-prettier": "^10.1.0",
+    "eslint-plugin-next": "^0.0.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5",
+    "typescript-eslint": "^8.26.0"
   }
 }
