@@ -1,0 +1,34 @@
+# Waku Message
+This page is currently being finalized. Please check back later for updates.
+
+## Message Structure and Standards
+
+Messages in OIP leverage the Waku protocol's standardized structure, ensuring interoperability and efficient data propagation across the network. Each OIP message consists of a payload and various attributes, defined clearly through the `OIPAppRegistry` contract.
+
+## Message Structure
+
+OIP uses Protocol Buffers v3 for message serialization, adopting the Waku Message structure as defined:
+
+```proto
+message WakuMessage {
+  bytes payload = 1;
+  string content_topic = 2;
+  optional uint32 version = 3;
+  optional sint64 timestamp = 10;
+  optional bytes meta = 11;
+  optional bool ephemeral = 31;
+}
+```
+
+## Message Encoding
+
+OIP strongly recommends encoding message payloads using Protocol Buffers (Protobuf) to ensure compact, schema-driven message serialization. For example:
+
+```javascript
+import protobuf from "protobufjs";
+
+const DataPacket = new protobuf.Type("DataPacket")
+  .add(new protobuf.Field("timestamp", 1, "uint64"))
+  .add(new protobuf.Field("sender", 2, "string"))
+  .add(new protobuf.Field("message", 3, "string"));
+```

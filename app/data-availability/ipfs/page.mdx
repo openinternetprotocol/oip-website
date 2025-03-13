@@ -1,0 +1,57 @@
+# IPFS
+
+InterPlanetary File System (IPFS) is a decentralized, peer-to-peer protocol for content-addressable storage and distribution of data. By using cryptographic hashing, IPFS ensures data integrity and enables efficient retrieval across a distributed network. Its architecture removes reliance on centralized servers, making it an ideal candidate for censorship-resistant and highly available applications.
+
+## Introduction to IPFS
+
+### Overview
+
+IPFS is a distributed file system that enables content to be identified and retrieved based on its content rather than its location. Unlike traditional HTTP-based architectures where data is fetched from a specific server, IPFS retrieves data from multiple peers that host the content, ensuring redundancy and resilience.
+
+At its core, IPFS introduces the concept of content-addressed storage, where every piece of data is assigned a unique identifier known as a **Content Identifier (CID)**. This CID is derived from the cryptographic hash of the content itself, ensuring immutability and verifiability.
+
+### Historical Context
+
+IPFS was created by **Juan Benet** in 2015 as an open-source project under Protocol Labs. It was designed to address fundamental limitations in the web’s existing client-server model, such as centralization, inefficiency, and lack of permanence. Over time, it has been widely adopted in decentralized applications, Web3 platforms, and blockchain ecosystems for reliable storage and data sharing.
+
+### Core Features
+
+- **Content Addressability:** Every file is assigned a unique CID based on its hash, ensuring tamper-proof data verification.
+- **Distributed Storage:** Data is stored across a peer-to-peer network rather than relying on centralized servers, improving availability and redundancy.
+- **Deduplication:** IPFS efficiently handles identical files by storing them only once, reducing storage costs and bandwidth usage.
+- **InterPlanetary Linked Data (IPLD):** IPFS is designed to work with IPLD, enabling structured, linked data across different protocols.
+- **Efficient Data Retrieval:** Data is located and retrieved using a Directed Acyclic Graph (DAG) structure, allowing for parallelized, efficient content discovery.
+
+### Technical Architecture
+
+IPFS operates through a layered architecture that consists of:
+
+- **Merkle DAG (Directed Acyclic Graph):** A hierarchical structure that enables efficient verification and linking of data.
+- **Distributed Hash Table (DHT):** A decentralized lookup system for discovering content location across the network.
+- **BitSwap Protocol:** Facilitates peer-to-peer file sharing by ensuring content is exchanged fairly between nodes.
+- **IPLD (InterPlanetary Linked Data):** A data model that makes different content-addressable systems interoperable.
+- **Libp2p:** A modular networking stack that provides secure, peer-to-peer communication between IPFS nodes.
+
+In current day some parts of the IPFS architecture have been turned into standalone projects.
+
+## IPFS in OIP
+
+OIP is designed with **native content addressing**, making it inherently compatible with IPFS. This means that IPFS can seamlessly integrate into OIP applications without requiring additional layers or modifications. However, while IPFS is **not a mandatory component of OIP**, it is strongly recommended for developers who require decentralized storage and efficient content retrieval.
+
+### Plug-and-Play Compatibility
+
+- **Native Content Addressing:** Since OIP relies on content-addressed storage via IPLD, IPFS can be easily integrated as a storage backend.
+- **Flexible Storage Options:** Developers can choose between self-hosting an IPFS node or using third-party providers for convenience.
+- **Improved Redundancy:** Combining OIP’s indexing capabilities with IPFS’s distributed storage ensures high availability and fault tolerance.
+
+### Recommended Usage
+
+For general usage, we recommend [Fleek](https://fleek.xyz) as a managed IPFS solution for developers looking to avoid operational overhead. Fleek provides automated IPFS pinning, reliable gateways, and enhanced performance for serving content efficiently within OIP-based applications.
+
+### Considerations
+
+- **Persistence:** Since IPFS is a peer-to-peer network, content is not automatically persisted unless pinned. Developers should consider **Filecoin** or managed pinning services to ensure data availability.
+- **Performance:** While IPFS offers decentralized storage, retrieval times can vary based on network topology and availability. Using **dedicated IPFS providers** or **custom caching mechanisms** can mitigate performance fluctuations.
+- **Security:** Data on IPFS is immutable but not inherently private. Developers should encrypt sensitive data before uploading it to IPFS to maintain security.
+
+By leveraging IPFS, developers building on OIP can create decentralized, scalable, and censorship-resistant applications while maintaining flexibility in their choice of storage infrastructure.

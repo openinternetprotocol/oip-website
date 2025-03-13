@@ -1,2 +1,68 @@
 # Accounts
-This page is currently being finalized. Please check back later for updates.
+
+Accounts within the Open Internet Protocol (OIP) serve as foundational elements for user identity, authentication, and access management across decentralized applications. Designed for interoperability, OIP accounts allow users to maintain a consistent identity across multiple applications while offering granular control over permissions and delegation.
+
+This document covers the essential concepts related to accounts: IDs, usernames, and delegation.
+
+## Identifiers (IDs)
+
+An OIP ID is a unique, system-wide identifier assigned to every account upon registration. Each ID is represented as an immutable numeric value, guaranteeing its uniqueness and collision resistance within the OIP network. Once assigned, an ID permanently identifies the account across all applications built upon OIP, facilitating seamless interoperability and consistent user experiences.
+
+### Key properties of OIP IDs:
+- **Immutable:** Once an ID is generated and assigned, it never changes.
+- **Global uniqueness:** IDs are generated using incremental counters or cryptographic methods, ensuring global uniqueness and collision-free operation across the network.
+- **Ownership:** Each ID is linked directly to an EVM-compatible blockchain address (or similar decentralized identifier), clearly establishing ownership.
+
+### Usage of IDs:
+- OIP IDs are primarily used by applications to authenticate users, reference ownership of digital assets, and establish relationships between accounts.
+- IDs enable decentralized applications (dApps) within the OIP ecosystem to reliably identify user accounts without relying on mutable or ambiguous user attributes.
+
+## Usernames
+
+Usernames in OIP serve as human-readable identifiers associated with OIP IDs. They provide an intuitive and easily memorable method for users to identify and interact with each other, enhancing usability and discoverability within the ecosystem.
+
+### Characteristics of OIP usernames:
+- **Human-readable:** Usernames are chosen by users and are designed to be intuitive, memorable, and easy to share.
+- **Uniqueness:** Each username is globally unique within the OIP namespace, ensuring no two accounts can share the same username.
+- **Reservation mechanism:** To prevent frontrunning or squatting, usernames undergo a reservation phase, typically protected through a secret-based reservation hash.
+- **Constraints:** Usernames must adhere to certain rules, such as length restrictions (typically 3-15 characters), allowed characters (lowercase letters, numbers, single dashes), and no consecutive or edge dashes.
+
+### Username lifecycle:
+1. **Reservation:** Users first reserve a username through a cryptographic reservation hash.
+2. **Registration:** Following reservation, usernames are permanently bound to the user's OIP ID once validated.
+3. **Resolution:** Usernames are mapped to OIP IDs, allowing for intuitive discovery of user identities.
+
+## Delegation
+
+Delegation within OIP enables account owners to grant permission to other accounts or designated service providers (delegates) to perform specific actions on their behalf. Delegation enhances usability by allowing third-party or automated services to securely manage tasks without compromising the account owner's sovereignty.
+
+### Delegation scopes:
+- Delegation is performed within specific application scopes, rather than globally. Account owners explicitly authorize delegates per application, enhancing security and granular control.
+- Application owners define delegate addresses that are permitted to act on behalf of users who have explicitly enabled delegation for that application.
+
+### Delegation process:
+1. **Authorization:** Users explicitly assign delegates to specific applications, clearly defining the actions permitted.
+2. **Acceptance:** Delegates explicitly accept the delegation request, establishing a two-way consent mechanism.
+3. **Execution:** Authorized delegates perform actions such as registering assets, transferring ownership, or executing application-specific transactions.
+
+### Security and control:
+- Delegation permissions are revocable by the account owner at any time.
+- Each delegation permission explicitly states its scope and validity, often coupled with expiration timestamps or cryptographic signatures to prevent misuse.
+- Delegates operate transparently within the scope defined by users, maintaining auditable records of all delegated actions.
+
+
+## Transferring Ownership
+Each OIP account can be tokenized as an ERC-721 non-fungible token, allowing for standardized transfer of ownership between accounts. This feature enables the creation of digital assets representing user accounts, which can be traded, gifted, or inherited within the OIP ecosystem.
+
+However, tokenized accounts do not affect the underlying account functionality, such as delegation or username management, which remain controlled by the account owner. Accounts can be transferred with or without the creation of a token, depending on the use case and desired functionality.
+
+As of now, tokenized accounts are temporarily disabled in the OIP reference implementation. You can read more about this feature in the [Safety Nets](/safety-nets) section.
+
+## Blockchain Integration
+OIP accounts are natively integrated with Ethereum and other EVM-compatible blockchains, leveraging smart contracts for identity management, delegation, and ownership transfer. This integration ensures secure, transparent, and interoperable account management across decentralized applications, enabling seamless user experiences and robust identity verification mechanisms. For more information on the smart contracts powering OIP accounts, refer to the [Smart Contracts](/smart-contracts) section. 
+
+
+---
+
+This document outlines foundational principles and best practices related to account management within OIP, ensuring secure, intuitive, and interoperable user identity management across decentralized applications.
+

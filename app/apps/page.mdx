@@ -1,2 +1,12 @@
 # Apps
 This page is currently being finalized. Please check back later for updates.
+
+## Using the OIPAppRegistry
+
+Developers building applications on OIP should reference the `OIPAppRegistry` smart contract to access:
+
+- **Application Identifiers:** Each registered application receives a unique, incremental numeric ID paired with a human-readable string identifier. These IDs provide deterministic, collision-free identification across the OIP network.
+
+- **Versioning and Messaging Standards:** Every application entry includes versioning linked explicitly to a documentation resource (such as a URL or a CID containing natural-language specifications). This ensures consistent interpretation and encoding of messages, enhancing interoperability between applications.
+
+- **Content Topics and Auto-Sharding:** OIP employs Waku’s auto-sharding mechanism to route messages efficiently. Content topics must include both the application name and version, formatted as `/application-name/version/content-topic-name/encoding`. Developers should use a `_testnet` postfix during development to maintain separation from production traffic.

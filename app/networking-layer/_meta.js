@@ -1,13 +1,14 @@
 export default {
-  'getting-started': {
-    title: 'Getting Started',
+  waku: {
+    title: 'Waku',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
-  'smart-contracts': {
-    title: 'Smart Contracts',
+  libp2p: {
+    title: 'libp2p',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
-  nodes: {
-    title: 'Offchain Nodes',
+  blockchain: {
+    title: 'Blockchain',
+    theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
 };

@@ -1,0 +1,60 @@
+# Blockchain
+
+The Open Identity Protocol (OIP) is fundamentally designed to interact seamlessly with Ethereum Virtual Machine (EVM)-compatible blockchains, providing secure, cryptographically verified interactions across decentralized applications (dApps). This document provides a comprehensive understanding of how OIP leverages blockchain technology, emphasizing its integration with EVM-compatible chains, key management, and cryptographic signature mechanisms.
+
+## Compatibility with EVM Chains
+
+OIP is engineered for interoperability across EVM-compatible blockchains, facilitating deployment flexibility and broader ecosystem integration. Currently, the reference implementations of OIP contracts are deployed on Base Sepolia, an Ethereum Layer 2 test network built on [Optimism’s OP Stack](https://viem.sh/op-stack). Although OIP's foundational contracts reside on Base Sepolia, the protocol itself remains blockchain-agnostic, designed to operate efficiently across various EVM-compatible environments.
+
+## Account Management and Key Generation
+
+Edge nodes within the OIP network generate unique cryptographic private keys corresponding to Ethereum-compatible accounts. These keys allow edge nodes to securely sign transactions and data payloads, ensuring authenticity, non-repudiation, and integrity. Such cryptographic signing is crucial for verifying data ownership, authenticating user actions, and maintaining the integrity of the data across decentralized systems.
+
+The use of unique keys for each edge node guarantees:
+
+- **Secure Isolation:** Each node operates independently, preventing cross-contamination of keys.
+- **Traceability:** Transactions and signatures can be unequivocally traced back to individual nodes, enhancing accountability.
+- **Robust Security:** Keys never leave their respective nodes, reducing the risk of centralized key exposure.
+
+## Blockchain Signatures and Data Integrity
+
+When an OIP node generates and broadcasts messages, each message includes cryptographic signatures created using the node’s Ethereum-compatible private key. These signatures ensure data authenticity, immutability, and non-repudiation.
+
+Each signed message contains essential blockchain context, including:
+
+- **Chain ID:** This identifier ensures the correct blockchain network context, preventing replay attacks across chains.
+- **Block Height:** Including the block height guarantees the temporal integrity of each transaction, allowing precise chronological ordering and validation within the blockchain's immutable record.
+
+This structured approach allows rejecting invalid messages, by obtaining the associated timestamp for a given block height and verifying the signature against the originating node’s public key.
+
+## Protocol Contracts on Base Sepolia
+
+OIP’s current implementation leverages smart contracts deployed on Base Sepolia, serving as the authoritative source of truth for identities, account information, and delegation permissions. The contracts define the rules, permissions, and interactions permissible within OIP, providing essential governance mechanisms, including delegation and identity management. However, the design explicitly separates OIP’s core functionality from dependency on a single blockchain implementation, ensuring flexibility and adaptability.
+
+To learn more about the specific smart contracts powering OIP, refer to the [Smart Contracts](/smart-contracts) section.
+
+## RPC
+
+To interact with Base Sepolia in your implementation, you can use RPC endpoints provided by Base. Refer to [Base Networking Information](https://docs.base.org/chain/network-information) or [ChainList](https://chainlist.org/chain/84532) for more details.
+
+## Signatures and Verification
+
+Every significant interaction within OIP involves cryptographic signatures verified on-chain, linking actions conclusively to their originating accounts. Edge nodes generate Ethereum-compatible signatures for data validation, which are then verified on-chain or through associated verification contracts. These signatures ensure:
+
+- **Authentication and Authorization:** Only authorized entities can perform critical operations.
+- **Integrity of Actions:** All actions are validated through signature checks, providing robust assurances of data authenticity.
+
+## libp2p
+
+Ethereum's networking layer is built on [libp2p](https://libp2p.io), a modular peer-to-peer networking framework that enables decentralized and scalable communication between nodes. OIP leverages libp2p as part of its stack, particularly in conjunction with Waku, to facilitate secure and efficient message propagation across a distributed network.
+
+### Ethereum and libp2p
+
+Ethereum utilizes libp2p to handle peer discovery, node communication, and transaction propagation. The consensus and execution layers rely on libp2p’s gossip and request-response protocols to exchange critical data such as transactions, blocks, and attestations. The shift towards libp2p replaced legacy networking stacks such as DevP2P, bringing improvements in security, modularity, and extensibility.
+
+To learn more about libp2p in OIP, head over to [libp2p](/networking-layer/libp2p).
+
+## Conclusion
+
+OIP’s blockchain integration strategy ensures secure, transparent, and interoperable identity and account management across the decentralized landscape. Through strategic use of EVM-compatible technology, comprehensive cryptographic verification, and blockchain-agnostic architecture, OIP establishes a resilient, secure, and adaptive protocol for decentralized interactions.
+

@@ -1,4 +1,4 @@
-# Messaging
+# Waku
 
 The Open Internet Protocol (OIP) utilizes the [Waku](https://waku.org) messaging protocol to manage and route data efficiently in a decentralized, peer-to-peer network. This page details the best practices for constructing and utilizing Waku messages within OIP.
 
@@ -32,37 +32,7 @@ Waku builds upon [libp2p's GossipSub](https://libp2p.io) protocol for message ro
 - **Light Push Protocol:** Designed for nodes with limited bandwidth and short connection windows, this protocol allows clients to send messages with acknowledgment of receipt, ensuring reliable message delivery without the need for continuous network participation.
 
 
-### Waku's Evolution and Recognition
-**Vitalik Buterin, co-founder of Ethereum, [acknowledged Waku as the continuation of the vision for decentralized messaging initially embodied by Whisper](https://vitalik.eth.limo/general/2023/12/28/cypherpunk.html). He noted that while Whisper received less attention with the shift toward financialization around 2017, it continues to exist as Waku and is actively used by projects like the decentralized messenger Status.
-
-## Message Structure and Standards
-
-Messages in OIP leverage the Waku protocol's standardized structure, ensuring interoperability and efficient data propagation across the network. Each OIP message consists of a payload and various attributes, defined clearly through the `OIPAppRegistry` contract.
-
-## Using the OIPAppRegistry
-
-Developers building applications on OIP should reference the `OIPAppRegistry` smart contract to access:
-
-- **Application Identifiers:** Each registered application receives a unique, incremental numeric ID paired with a human-readable string identifier. These IDs provide deterministic, collision-free identification across the OIP network.
-
-- **Versioning and Messaging Standards:** Every application entry includes versioning linked explicitly to a documentation resource (such as a URL or a CID containing natural-language specifications). This ensures consistent interpretation and encoding of messages, enhancing interoperability between applications.
-
-- **Content Topics and Auto-Sharding:** OIP employs Waku’s auto-sharding mechanism to route messages efficiently. Content topics must include both the application name and version, formatted as `/application-name/version/content-topic-name/encoding`. Developers should use a `_testnet` postfix during development to maintain separation from production traffic.
-
-## Message Structure
-
-OIP uses Protocol Buffers v3 for message serialization, adopting the Waku Message structure as defined:
-
-```proto
-message WakuMessage {
-  bytes payload = 1;
-  string content_topic = 2;
-  optional uint32 version = 3;
-  optional sint64 timestamp = 10;
-  optional bytes meta = 11;
-  optional bool ephemeral = 31;
-}
-```
+> Vitalik Buterin, co-founder of Ethereum, [acknowledged Waku as the continuation of the vision for decentralized messaging initially embodied by Whisper](https://vitalik.eth.limo/general/2023/12/28/cypherpunk.html). He noted that while Whisper received less attention with the shift toward financialization around 2017, it continues to exist as Waku and is actively used by projects like the decentralized messenger Status.
 
 ## Recommended Usage
 
@@ -72,27 +42,9 @@ message WakuMessage {
 
 - **Security and Integrity:** Message hashes should be computed deterministically to ensure consistency and integrity. OIP follows Waku’s recommended message hashing methodology to ensure efficient verification.
 
-## Message Encoding
-
-OIP strongly recommends encoding message payloads using Protocol Buffers (Protobuf) to ensure compact, schema-driven message serialization. For example:
-
-```javascript
-import protobuf from "protobufjs";
-
-const DataPacket = new protobuf.Type("DataPacket")
-  .add(new protobuf.Field("timestamp", 1, "uint64"))
-  .add(new protobuf.Field("sender", 2, "string"))
-  .add(new protobuf.Field("message", 3, "string"));
-```
-
 ## Persistence and Ephemerality
 
 Messages marked as ephemeral will not be persisted across the network. Ephemeral status should be carefully set according to the application's requirements, as this affects both storage behavior and network resilience.
-
-For further technical details, refer to the [Waku Network documentation](https://waku.org).
-
-## Encryption
-Please refer to the [Cryptography](/cryptography) section for details on message encryption and privacy practices within OIP.
 
 ---
 

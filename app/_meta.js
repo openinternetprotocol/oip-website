@@ -24,11 +24,17 @@ export default {
     type: 'separator',
     title: 'Core Concepts',
   },
-  stack: 'Stack',
+  'intro-to-oip': {
+    title: 'Intro to OIP',
+    theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
+  },
   apps: { title: 'Apps', theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false } },
   accounts: { title: 'Accounts', theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false } },
-  participation: {
-    title: 'Network Participation',
+  nodes: {
+    title: 'Nodes',
+  },
+  incentives: {
+    title: 'Incentives',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
 
@@ -36,18 +42,31 @@ export default {
     type: 'separator',
     title: 'Specs',
   },
-  messaging: { title: 'Messaging', theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false } },
-  'content-addressing': {
-    title: 'Content Addressing',
+  'smart-contracts': {
+    title: 'Smart Contracts',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
-  networking: {
-    title: 'Networking',
+  'message-format': {
+    title: 'Message Format',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
 
-  cryptography: {
-    title: 'Cryptography',
+  'advanced-separator': {
+    type: 'separator',
+    title: 'Advanced',
+  },
+
+  'networking-layer': {
+    title: 'Networking Layer',
+  },
+  'data-structures': {
+    title: 'Data structures, encoding',
+  },
+  'data-availability': {
+    title: 'Data Availability',
+  },
+  governance: {
+    title: 'Governance',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
 

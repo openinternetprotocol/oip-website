@@ -1,7 +1,7 @@
 import { Cards } from 'nextra/components'
 import { IconFiles, IconSatellite } from '@tabler/icons-react';
 
-# Getting Started with the OIP Stack
+# Intro to OIP
 
 This guide introduces the core components of the Open Internet Protocol (OIP) stack, detailing how the various layers integrate to enable scalable, secure, and efficient decentralized applications.
 
@@ -16,8 +16,8 @@ Decentralized applications often face challenges related to high transaction cos
 
 The onchain portion of the Open Internet Protocol consists of modular Ethereum Virtual Machine (EVM)-compatible smart contracts. These contracts provide:
 
-- **Identity Management:** Persistent, interoperable, human-readable identities managed via the `OIPIdRegistry` and `OIPNameRegistry` contracts.
 - **App Definitions:** Clear definitions and standards for applications registered on OIP through the `OIPAppRegistry`.
+- **Identity Management:** Persistent, interoperable, human-readable identities managed via the `OIPIdRegistry` and `OIPNameRegistry` contracts.
 - **Access Control:** Secure delegation and fine-grained access control mechanisms enabled by the `OIPAccessRegistry`.
 - **Node Management:** Registration and verification of edge and relay nodes via the `OIPNodeRegistry`.
 
@@ -25,10 +25,10 @@ Smart contracts ensure persistent data management, essential for identity and au
 
 ## Offchain Components
 
-OIP offchain operations leverage decentralized networks utilizing relay and edge nodes:
+OIP offchain operations leverage decentralized networks, like [Waku](/networking-layer/waku), utilizing relay and edge nodes:
 
-- **Relay Nodes:** These facilitate efficient message propagation without relying on the blockchain for high-frequency data transactions.
-- **Edge Nodes:** Operated by network participants, edge nodes cache and provide data locally, significantly increasing data availability and resilience. Edge nodes also periodically provide cryptographic proofs, confirming data integrity and availability.
+- **Relay Nodes:** These facilitate efficient message propagation without relying on the blockchain for high-frequency data operations.
+- **Edge Nodes:** Operated by network participants--or in other words: users of apps built on OIP--edge nodes cache and provide data locally, significantly increasing data availability and resilience. Edge nodes also periodically provide cryptographic proofs, confirming data integrity and availability.
 
 ## Continue reading
  <Cards>
