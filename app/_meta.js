@@ -24,8 +24,8 @@ export default {
     type: 'separator',
     title: 'Core Concepts',
   },
-  'intro-to-oip': {
-    title: 'Intro to OIP',
+  stack: {
+    title: 'Stack',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
   apps: { title: 'Apps', theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false } },
@@ -37,6 +37,10 @@ export default {
     title: 'Incentives',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
+  moderation: {
+    title: 'Moderation',
+    theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
+  },
 
   'specs-separator': {
     type: 'separator',
@@ -46,8 +50,8 @@ export default {
     title: 'Smart Contracts',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
-  'message-format': {
-    title: 'Message Format',
+  messaging: {
+    title: 'Messaging',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
 

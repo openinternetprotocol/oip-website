@@ -1,16 +1,14 @@
 import { Cards } from 'nextra/components'
 import { IconFiles, IconSatellite } from '@tabler/icons-react';
 
-# Intro to OIP
+# Stack
 
 This guide introduces the core components of the Open Internet Protocol (OIP) stack, detailing how the various layers integrate to enable scalable, secure, and efficient decentralized applications.
 
 ## Motivation
 Decentralized applications often face challenges related to high transaction costs, limited throughput, and latency when interactions occur entirely onchain. OIP addresses these issues through a hybrid approach, combining persistent and verifiable onchain smart contracts with high-performance offchain messaging and data storage. This design ensures critical states like identity and authorization remain secure and immutable onchain, while offchain operations efficiently handle high-frequency interactions, significantly reducing costs, latency, and network congestion.
 
-## Onchain Components
-
-### Smart Contracts
+## Smart Contracts
 
 The onchain portion of the Open Internet Protocol consists of modular Ethereum Virtual Machine (EVM)-compatible smart contracts. These contracts provide:
 
@@ -21,12 +19,14 @@ The onchain portion of the Open Internet Protocol consists of modular Ethereum V
 
 Smart contracts ensure persistent data management, essential for identity and authorization states, due to the transient nature of offchain relay nodes.
 
-## Offchain Components
+## Nodes
 
-OIP offchain operations leverage decentralized networks, like [Waku](/networking-layer/waku), utilizing relay and edge nodes:
+### In short
+OIP offchain operations extend [Waku](/networking-layer/waku), utilizing relay and edge nodes:
 
 - **Relay Nodes:** These facilitate efficient message propagation without relying on the blockchain for high-frequency data operations.
 - **Edge Nodes:** Operated by network participants--or in other words: users of apps built on OIP--edge nodes cache and provide data locally, significantly increasing data availability and resilience. Edge nodes also periodically provide cryptographic proofs, confirming data integrity and availability.
+
 
 ## Continue reading
  <Cards>

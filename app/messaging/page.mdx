@@ -1,0 +1,123 @@
+import { Callout } from 'nextra/components'
+
+# Messaging
+
+This section outlines the messaging specification for applications building on the Open Identity Protocol (OIP). Messages in OIP are timestamped, cryptographically signed, and designed to be tamper-proof. Messages leverage Waku for transmission across the network.
+
+<Callout type="info">
+This spec is a work in progress and is subject to change. 
+</Callout>
+
+---
+
+## Content Topics
+
+Content topics organize message distribution across the network. The following topic conventions must be adopted by applications:
+
+- `app_xyz` represents the placeholder name of an application as registered in the `OIPAppRegistry`.
+- `1` indicates the version number of the application, obtained dynamically from the `OIPAppRegistry`.
+- `OIPid` identifies a specific user, retrievable via username from the `OIPNameRegistry` or directly from the `OIPIdRegistry`.
+- `nodeAddress` refers to a specific node's address, obtainable from the `OIPNodeRegistry`.
+
+Head over to [smart contracts](/smart-contracts) to learn more about the core contracts.
+
+### Default content topics
+The prefix `oip_testnet_` is used to denote the Open Internet Protocol, and is defined in the `OIPAppRegistry` and is automatically prefixed to all content topics. This is removed when the protocol transitions to the mainnet.
+
+#### Default Topics
+- `/oip_testnet_app_xyz/1/updates-all/proto`: Subscribe to updates from all OIP IDs within the app.
+- `/oip_testnet_app_xyz/1/updates-${OIPid}/proto`: Subscribe to updates from a specific OIP ID within the app.
+- `/oip_testnet_app_xyz/1/latest-${OIPid}/proto`: Obtain the latest state for a specific OIP ID.
+- `/oip_testnet_app_xyz/1/requests-${OIPid}/proto`: Request the latest state for a specific OIP ID.
+- `/oip_testnet_app_xyz/1/ping-all/proto`: Ping all nodes to check availability (response rate-limited to once per 24 hours per sender).
+- `/oip_testnet_app_xyz/1/ping-${nodeAddress}/proto`: Ping a specific node (response rate-limited to once per 24 hours per sender).
+
+Additional custom content topics and message structures can be defined in the `OIPNodeRegistry` by app developers to extend functionality as required.
+
+## Message Format and Requirements
+
+Messages must conform to the `14/WAKU2-MESSAGE` standard.
+
+### Update Message
+Update messages are sent by users to update their content state and sent over both the ``/app_xyz/1/updates-${OIPid}/proto`` and ``/app_xyz/1/updates-all/proto`` topics.
+
+A basic OIP message structure contains:
+- **Object** (`string`): A JSON stringified object representing user-generated content.
+- **Previous CID** (`string | null`): CID of the previous message, forming a verifiable hash-chain. Initial messages use `null`.
+- **Block Number** (`uint256`): Blockchain network block number for timestamp verification.
+- **Chain ID** (`uint256`): Identifier of the blockchain network (e.g., Base Sepolia is `84532`).
+- **OIP App ID** (`uint256`): Application ID from the `OIPAppRegistry`.
+- **Signer** (`string`): Ethereum address of the content creator or authorized delegate.
+- **Signature** (`string`): Ethereum signature of the serialized object for authenticity verification.
+
+Example OIP message signing using Ethers:
+
+```javascript
+import { ethers } from 'ethers';
+
+const object = '{...}'; // stringified JSON object, the structure of this object is defined by the app.
+const previousCID = 'baf...'; // CID or null
+const blockNumber = 123456;
+const chainId = 84532; // Base Sepolia example
+const OIPid = 2 // OIP ID of the user
+const appID = 1; // App ID from OIPAppRegistry
+
+const messageHash = ethers.solidityPackedKeccak256(
+  ['string', 'string', 'uint256', 'uint256', 'uint256', 'uint256'],
+  [object, previousCID || '', blockNumber, chainId, OIPid, appID]
+);
+
+const signature = await wallet.signMessage(messageHash);
+```
+
+## Interacting with the Network
+
+### As a Node
+
+- **Posting Updates**: Nodes broadcast updates when the local object state changes.
+- **Listening for Updates**: Nodes subscribe to relevant content topics to maintain an up-to-date object state.
+
+### As a Client
+
+- **Requesting Data**: Clients request latest states via caching nodes or hosting nodes when local data is unavailable.
+- **Node Ping**: Clients ping nodes to verify availability.
+
+## Signatures
+
+OIP messages require two signatures:
+
+1. **Content Signature**: Verifies the authenticity of the user-generated content (`object`). Signed by the user's private Ethereum key.
+
+2. **Node Signature (optional)**: Verifies the integrity and delivery of messages by specific relay or hosting nodes. Signed by the node’s Ethereum private key.
+
+## Waku Message Limitations
+
+Waku messaging has specific limitations developers must be aware of:
+
+- **Max Message Size**: Waku protocol has a maximum message size of **150KB**.
+- **Recommended Size**: For optimal performance and reliability, individual messages should ideally be around **4KB** or smaller.
+- **Binary and Large Data**: For content exceeding 4KB (images, videos, large files), store the data on IPFS. Reference the IPFS CID within the OIP message instead of transmitting raw binary data.
+
+## Handling Large Content
+
+For content exceeding recommended sizes, OIP advises referencing IPFS stored data:
+
+```json
+{
+  "content": "View image",
+  "mediaCID": "bafybeigdyrzt...",
+  "mediaType": "image/png"
+}
+```
+
+The message references the IPFS CID, with content retrieval handled separately via IPFS nodes.
+
+## Reliability and Scalability
+
+- **Rate-Limiting**: Node pings are rate-limited (once per 24 hours per sender-node pair) to prevent spam and resource exhaustion.
+- **Waku RLN**: Waku has created RLN (Rate Limiting Nullifier) to protect against spam and Denial-of-Service attacks.
+
+## Summary
+
+OIP messaging enables secure, verifiable, and efficient communication via Waku. By adhering to these guidelines, application developers can build reliable and scalable decentralized applications.
+

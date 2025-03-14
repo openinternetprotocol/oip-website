@@ -1,0 +1,50 @@
+# Moderation
+
+Moderation is a complex and nuanced topic within censorship-resistant and decentralized networks. OIP is designed to be credibly neutral, meaning that at the protocol level, no single entity has the ability to censor or alter content. This inherent neutrality ensures maximum openness and decentralization; however, it also presents unique challenges regarding compliance with local laws and jurisdictional requirements.
+
+## Credible Neutrality and OIP
+
+OIP’s foundational principle of credible neutrality means the underlying protocol and its decentralized infrastructure do not inherently support content censorship. Data propagated through the network is immutable and transparently accessible. This decentralization is essential for maintaining trust, reliability, and resistance to censorship or undue influence.
+
+## Legal and Jurisdictional Challenges
+
+Despite OIP’s core neutrality, real-world legal frameworks can impose obligations on service providers, relay operators, and application developers to moderate or remove certain content or restrict user activities. Compliance with regional or international laws related to data privacy, intellectual property, hate speech, misinformation, or other legal categories of restricted content must be managed carefully at the application or relay node levels.
+
+## Application-Level Moderation
+
+Because the protocol itself does not enforce moderation, app developers building on OIP are responsible for implementing moderation frameworks tailored to their specific legal and user-experience requirements. Apps can:
+
+- Define their own terms of service and acceptable use policies.
+- Implement user reporting systems for problematic content.
+- Use moderation tools, automated content filtering, or manual moderation teams.
+
+Each application should clearly communicate its moderation policies to users, ensuring transparency and managing user expectations regarding content availability and removals.
+
+## Relay-Level Moderation
+
+Relay nodes, responsible for propagating messages across the network, have a critical role. While relays typically operate neutrally, they may choose to implement selective moderation or filtering in response to legal requirements or community standards. This could include:
+
+- Filtering messages based on specific content identifiers or patterns.
+- Blocking or throttling traffic from identified malicious or illegal sources.
+
+Relay operators must balance moderation actions carefully to avoid undermining the decentralized and open nature of the network.
+
+## Edge Node Moderation and Endorsement Mechanisms
+
+At the edge node (end-user application) level, it is advisable to implement moderation mechanisms that empower users to have granular control over the content they store and share. Edge nodes can implement:
+
+- User-driven moderation tools, allowing users to filter or block specific content types or sources.
+- Endorsement-based storage, where users explicitly choose to store and share other users' content upon certain actions like following or explicitly endorsing other users.
+
+This model encourages decentralized moderation driven by individual and collective user decisions rather than centralized enforcement.
+
+## Recommended Practices
+
+To effectively manage moderation within OIP-based applications and services, developers should:
+
+- Transparently communicate their moderation strategies and policies.
+- Regularly audit their moderation practices for fairness and effectiveness.
+- Offer users clear avenues for appeals and conflict resolution.
+- Ensure compliance mechanisms respect user privacy and maintain transparency.
+
+In summary, moderation within OIP is best managed as a layered approach. Credible neutrality at the protocol layer empowers decentralized moderation strategies at the app, relay, and user levels, ensuring that OIP remains both open and adaptable to diverse legal and community needs.

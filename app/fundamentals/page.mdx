@@ -1,3 +1,5 @@
+import { Bleed } from 'nextra/components'
+
 # Fundamentals of the Open Internet Protocol
 
 The Open Internet Protocol (OIP) is designed to address inherent shortcomings found in traditional decentralized protocols by aligning rational user behavior with network health through social-psychological incentives. Unlike monetary incentive systems popularized by cryptocurrencies like Bitcoin, OIP emphasizes reputation and social capital as primary motivators for participation.
@@ -9,6 +11,9 @@ Central to OIP’s design is the acknowledgment that user participation in decen
 OIP explicitly leverages social mechanisms to motivate constructive participation, utilizing concepts from game theory and behavioral psychology. Contributions to the network enhance an individual's measurable social capital, thus creating a direct, rational incentive to maintain positive engagement. Conversely, disruptive or non-cooperative behaviors negatively impact a user's social reputation, discouraging malicious activity and promoting network integrity.
 
 To illustrate the potential of social capital as a motivator, [Meulpolder et al. (2010)](https://www.usenix.org/legacy/event/iptps/tech/full_papers/Meulpolder.pdf) demonstrated through extensive measurements of public and private BitTorrent communities that explicit reputation and sharing ratio enforcement mechanisms in private trackers significantly outperform the altruistic or purely voluntary mechanisms employed by public trackers, thus providing empirical support for structured social incentives in decentralized networks.
+
+A practical example can be found in the section [User Interface and Reputation](##user-interface-and-reputation).
+
 ## User Experience and Interoperability
 
 OIP introduces significant user experience enhancements, notably through the use of onchain human-readable identities. These identities are fully interoperable across different applications built on OIP, allowing users seamless transition and maintaining consistent social presence. This interoperability not only enhances user autonomy but also facilitates wider adoption by reducing barriers associated with identity management and portability.
@@ -17,9 +22,85 @@ OIP introduces significant user experience enhancements, notably through the use
 
 Designed inherently for scalability, OIP incorporates a lightweight architecture combining smart contracts for identity and integrity with an efficient offchain relay and edge-node infrastructure, extending [Waku](https://waku.org), which is built on [libp2p gossipsub](https://docs.libp2p.io/concepts/pubsub/overview/). This hybrid approach ensures scalability without sacrificing decentralization or security, accommodating high-throughput social applications with minimal resource overhead.
 
+## Network Participation Spectrum
+In traditional relay networks there are clients and relays. Clients are users of the network, while relays are servers that store and relay data. In OIP, network participation is a spectrum in which every user of an OIP app--this means clients too--becomes part of the network, ranging from edge nodes (clients) to relay nodes, each contributing to network health and resilience in varying capacities.
+
+<Bleed>
+```mermaid
+---
+title: Network particpation as a spectrum
+---
+graph LR
+    Edge["Edge Node"]:::green --> EdgeDB["Edge Node + Local Database"]:::lightgreen
+    EdgeDB --> Relay["Relay Node"]:::blue
+    Relay --> RelayDB["Relay Node + Database"]:::darkblue
+    RelayDB --> RelayDBIPFS["Relay Node + Database + IPFS"]:::purple
+
+    classDef green fill:#000000,stroke:#FF8800,color:#ffffff
+    classDef lightgreen fill:#000000,stroke:#DDAA33,color:#ffffff
+    classDef blue fill:#000000,stroke:#BBDD55,color:#ffffff
+    classDef darkblue fill:#000000,stroke:#88EE66,color:#ffffff
+    classDef purple fill:#000000,stroke:#55CC44,color:#ffffff
+    classDef default fill:#000000,stroke:#22AA22,color:#ffffff
+```
+</Bleed>
+<center><small>From left to right: lowest entry of participation to most engaged</small></center>
+
+## User Interface and Reputation
+As Portrait is a social protocol, every app built on OIP should visualize a user's social capital. This can be done by displaying a user's reputation score, which is calculated based on their interactions with the network. A user's reputation score can be increased by contributing to the network, such as by sharing content, or decreased by malicious behavior, such as spamming. This score can be used to determine a user's privileges within the network, such as access to certain features or content.
+
+In addition, the user interface should showcase the type of node a user is running: this encourages a sense of community and social status within the network. For example, a user running a relay node could have a special badge next to their name, indicating their contribution to the network.
+
+### Social doesn't mean social media
+It's important to note that social applications built on OIP are not specifically social media platforms. For example, the first app built on OIP, [Portrait](https://portrait.so), is a way to showcase your digital identity in a visual way, often compared with Pinterest, Linktree, Bento, and a Tumblr page.
+
+## Comparison to Nostr
+
+Nostr, short for "Notes and Other Stuff Transmitted by Relays," is a decentralized communication protocol that aims to facilitate censorship-resistant messaging by utilizing relay nodes. Despite its name, Nostr's implementation differs notably from a traditional relay architecture in several aspects.
+
+### Relay Functionality and Architecture
+
+In standard relay network architectures, relays forward data between nodes, creating redundancy and ensuring robust network resilience through automatic synchronization of data between relay nodes. However, in the current implementation of Nostr:
+
+- **No Direct Relay-to-Relay Communication**: Relays do not synchronize or exchange data directly with each other. Instead, individual clients (users) must independently connect to multiple relays to disseminate or retrieve messages.
+- **Client-Centric Redundancy**: Data redundancy and availability depend entirely on users connecting to multiple relays simultaneously. Each relay maintains its own isolated state, leading to potential fragmentation or data loss if a relay becomes unavailable.
+
+### Implications for Data Availability
+
+Due to this architecture, the responsibility for data redundancy and backup shifts to the user:
+
+> “If all the relays that you have used in the past go offline, all your posts will be unretrievable. This is one reason that Nostr allows users to connect to many relays—this ensures some degree of backup.” ([nostr.how](https://nostr.how/en/relays))
+
+While running a personal relay can offer a degree of increased data control, this approach remains subject to standard internet infrastructure constraints, such as censorship by hosting providers or ISPs. Additionally, running a relay is not trivial for typical users, as it demands both technical knowledge and ongoing resource commitments.
+
+### Relay Nodes in OIP
+
+By contrast, OIP’s relay infrastructure ensures actual relay functionality, where relay nodes autonomously communicate and synchronize data across the network. This reduces client burden and significantly improves network resilience and data availability, while still remaining lightweight and decentralized.
+
 ## Credible Neutrality and Open Source
 
 OIP is explicitly designed to be credibly neutral, placing control entirely in the hands of application developers and builders. Unlike proprietary networks or protocols benefiting centralized entities, OIP’s open-source nature ensures transparent governance, open collaboration, and neutrality. Any application built on OIP fully retains control and benefits without hidden fees or centralized profit mechanisms benefiting OIP itself.
 
+## Scaling
 
-In summary, OIP presents a pragmatic yet innovative approach to decentralized protocol design. By emphasizing rational, reputation-based participation, interoperability, scalability, and credible neutrality, OIP lays a solid foundation for sustainable and resilient decentralized social applications.
+Scaling in decentralized networks is a multifaceted challenge due to the tension between decentralization, resource constraints, and the need to maintain consistent data availability. OIP addresses scalability through a combination of intelligent pruning strategies, sharding, and leveraging IPFS as a complementary storage solution.
+
+### Data Pruning and FIFO Model
+
+To ensure relay nodes remain lightweight and resource-efficient, OIP employs a First-In-First-Out (FIFO) data pruning strategy. Under this approach, the oldest data entries are pruned first, maintaining the freshness of the dataset available on relay nodes while balancing resource consumption.
+
+To mitigate data loss concerns inherent in pruning:
+
+- **Persistent Local Copies**: Clients (edge nodes) are encouraged to maintain local copies of their data, ensuring permanent availability even after pruning at relay nodes.
+- **Content Addressable Storage**: Large or binary data, such as images and videos, should not be stored directly in relay nodes but instead referenced via IPFS Content Identifiers (CIDs). This dramatically reduces the storage burden on relays, enabling more efficient FIFO-based pruning without sacrificing data integrity or availability.
+
+### Sharding Strategy
+
+OIP integrates sharding—a common scalability solution—whereby network data is partitioned into manageable subsets, or "shards". In OIP’s implementation:
+
+- **App-Specific Sharding**: Data is partitioned by application or by specific contexts within applications. Each shard operates independently, enabling efficient horizontal scaling of relay nodes by limiting the volume of data each node needs to handle.
+- **Dynamic Node Participation**: Relay nodes can dynamically join or leave shards depending on their available resources and specific network needs, providing both flexibility and resilience in the face of changing network conditions.
+
+### IPFS Integration for Scalability
+
+OIP enhances scalability through native integration with IPFS, specifically leveraging IPFS's content-addressable storage model. By offloading large content items onto IPFS, the OIP protocol significantly reduces relay node storage and bandwidth demands, improving the efficiency and scalability of the entire network.
