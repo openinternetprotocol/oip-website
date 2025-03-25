@@ -1,3 +1,36 @@
-# Centralized storage
-This page is currently being finalized. Please check back later for updates.
+# Centralized Storage
+
+Centralized storage refers to cloud services where data is stored on servers managed and operated by a single provider. Examples include Amazon S3, Google Cloud Storage, and Microsoft Azure Blob Storage. While these services are efficient, scalable, and easy to use, they introduce significant centralization risks and potential single points of failure. These risks include censorship, data breaches, outages, and vendor lock-in.
+
+## Limitations and Risks
+
+### Centralization Risks
+Centralized storage relies heavily on the provider's infrastructure. If the provider experiences downtime, all dependent services become unavailable. Furthermore, data stored centrally is vulnerable to censorship or unilateral removal by the service provider or due to regulatory actions.
+
+### Lack of Content Addressing
+Most centralized storage solutions do not inherently support content-based addressing, meaning files are accessed through URLs or paths defined by the service rather than deterministic cryptographic hashes (CIDs). As a result, the authenticity and integrity of files cannot be independently verified by consumers without additional external checks.
+
+## Importance of CID (Content Identifiers)
+Content Identifiers (CIDs) form the backbone of decentralized data verification in protocols like OIP. A CID is a unique cryptographic hash that directly references the content itself rather than its location or server path. This ensures content authenticity, integrity, and immutability regardless of storage location or provider. Read more about CIDs in the [Content Addressing](../data-structures/content-addressing) section.
+
+## Recommended Practices with OIP
+When integrating centralized storage with OIP, it is essential to incorporate content addressing via CIDs (IPLD) to ensure data authenticity, interoperability, and resilience against centralization risks.
+
+### Practical Scenario Example
+Consider a decentralized social application called SocialGraph, built using OIP:
+
+Instead of storing profile images solely via an AWS S3 URL, SocialGraph references profile images primarily by CID for data integrity and decentralization compatibility:
+
+```json
+{
+  "profileImage": {
+    "cid": "bafyreib4lnktj3cv7g2rhhqzpjit6j7zse7zrsn6qfrk7y7hqcf6gt2c44",
+    "url": "https://s3.amazonaws.com/socialgraph/profile-images/user123.jpg"
+  }
+}
+```
+
+In this approach, the CID serves as the authoritative reference for the data, allowing verification regardless of whether the file is retrieved from centralized or decentralized storage. The AWS S3 URL serves as a fallback or convenience access point but should never replace the CID as the canonical source of truth.
+
+By adopting this hybrid approach, developers can leverage the speed and ease of centralized storage while ensuring data remains verifiable and compatible with decentralized protocols such as OIP.
 

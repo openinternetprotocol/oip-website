@@ -1,2 +1,37 @@
 # Signatures
-This page is currently being finalized. Please check back later for updates.
+
+Signatures are fundamental for ensuring authenticity, integrity, and accountability within the Open Internet Protocol (OIP). Every state update and content delivery in OIP is cryptographically signed, leveraging Ethereum-based cryptography for consistency and compatibility.
+
+## Ethereum-Based Signatures
+
+All updates made by a user, as well as content delivered by an edge node within the OIP network, must be signed using an Ethereum-compatible private key. This approach ensures that updates are verifiable, and participants can trust the authenticity of data exchanged throughout the network.
+
+Each user and edge node possesses a unique Ethereum private key, with the corresponding Ethereum address mapped on-chain to an owner of a specific OIP identity (Portrait ID). This mapping allows for straightforward verification of message origin and ownership directly through Ethereum-compatible smart contracts.
+
+## Edge Node Signatures
+
+Edge nodes in the OIP network utilize their unique Ethereum keys for signing delivered content, enabling clients to verify data integrity and origin. The Ethereum address of the edge node is registered and associated on-chain with the node owner, providing robust accountability and traceability for content delivery.
+
+## Verification and Blockchain Integration
+
+To facilitate verification, signatures include blockchain contextual data:
+
+- **Block Number**: The blockchain block number is included to timestamp updates, establishing chronological order and providing additional verifiability.
+- **Chain ID**: Identifies the blockchain network utilized (e.g., Base Sepolia, Ethereum Mainnet).
+
+Incorporating blockchain information allows nodes and clients to confirm the timeliness and correctness of updates, creating a verifiable historical log.
+
+## Example Workflow
+
+When a user updates their state or an edge node delivers content, the following verification steps occur:
+
+1. The message (state update or content) is serialized and hashed according to the standardized Ethereum-compatible format.
+2. The owner (user or edge node) signs the hashed message with their Ethereum private key.
+3. Receivers verify the signature against the Ethereum address linked to the OIP identity or edge node registration on-chain.
+
+## Practical Implications
+
+This Ethereum-based signing mechanism ensures robust security and interoperability, allowing OIP to integrate seamlessly with existing Ethereum-compatible tools, wallets, and infrastructure.
+
+By enforcing Ethereum-compatible signatures, OIP enhances trust and reliability across decentralized applications and content sharing, safeguarding against forgery and ensuring transparent ownership and accountability.
+

@@ -1,2 +1,79 @@
-# Other decentralized storage
-This page is currently being finalized. Please check back later for updates.
+# Other Decentralized Storage
+
+When building applications on the Open Internet Protocol (OIP), decentralized storage plays a crucial role in ensuring data persistence, availability, and censorship resistance. OIP is storage-agnostic by design, allowing developers flexibility to select decentralized storage solutions that align best with their needs. This section provides an overview of prominent decentralized storage protocols—Filecoin, Irys, and Arweave—including integration recommendations, technical considerations, and their suitability within the OIP ecosystem.
+
+---
+
+## Filecoin
+
+**What is Filecoin?**
+
+Filecoin is a decentralized peer-to-peer storage network developed by Protocol Labs, designed to reliably store and preserve humanity's critical data. It establishes a marketplace where users pay FIL tokens to storage providers, who compete to securely store client data through cryptographic proofs.
+
+**Technical Deep Dive**
+
+At the heart of Filecoin are two cryptographic mechanisms—**Proof-of-Replication (PoRep)** and **Proof-of-Spacetime (PoSt)**. These mechanisms ensure that storage providers store the data accurately and consistently over time. By economically incentivizing storage reliability, Filecoin creates a robust decentralized infrastructure, making it highly suited to applications requiring secure, verifiable, and persistent storage.
+
+Filecoin integrates seamlessly with IPFS (InterPlanetary File System), benefiting from IPFS's content-addressable storage model, enabling efficient data retrieval and deduplication.
+
+**Integration Recommendations**
+
+- **Fleek ([fleek.xyz](https://fleek.xyz/))**: Provides an intuitive platform to easily deploy websites and applications directly to Filecoin and IPFS, abstracting complexity and enhancing ease-of-use for developers.
+
+- **Storacha ([storacha.network](https://storacha.network/))**: Offers decentralized "hot storage" built on Filecoin, providing rapid access, high performance, and scalable storage ideal for latency-sensitive applications.
+
+Portrait, the first major application built on OIP, uses Fleek for streamlined Filecoin integration and also recommends Storacha for applications that require responsive, real-time data access.
+
+---
+
+## Irys
+
+**What is Irys?**
+
+Irys is a decentralized Layer-1 datachain designed for efficient, cost-effective storage and computation of large-scale datasets. It enables developers to store and process data directly on-chain in a decentralized manner, removing dependencies on external, centralized storage services.
+
+**Technical Deep Dive**
+
+Irys integrates storage with computation within a blockchain environment using a consensus mechanism based on **Useful Proof of Work (uPoW)** and staking. These mechanisms ensure decentralization, data integrity, and availability through economically aligned incentives. This makes Irys particularly suitable for data-intensive decentralized applications requiring built-in computational capabilities.
+
+**Content Addressing and CID Considerations**
+
+While Irys excels in efficient data storage and computation, it does not inherently support IPFS's content-addressable storage, which is fundamental to OIP. Instead, Irys uses transaction IDs generated from hashing both content and metadata, resulting in non-deterministic identifiers even for identical content.
+
+However, Irys provides internal support for "tags," key-value pairs attached to data transactions. These tags can map IPFS Content Identifiers (CIDs) to Irys transaction IDs, enabling CID-based data retrieval via GraphQL queries.
+
+Additionally, Irys supports data retrieval using IPFS CIDs through its gateway (`https://gateway.irys.xyz/ipfs/:contentID`). Although convenient, developers should note this IPFS CID rendering currently does not verify content integrity against the CID, a limitation expected to be addressed in a future update.
+
+Portrait actively leverages Irys due to its performance and cost-efficiency, recommending developers tag transactions explicitly with IPFS CIDs to bridge between IPFS's deterministic addressing and Irys's transaction-based model.
+
+---
+
+## Arweave
+
+**What is Arweave?**
+
+Arweave is a decentralized protocol specifically designed for permanent, immutable storage of data. Through its "blockweave" architecture and unique economic model, Arweave ensures that data uploaded once is stored perpetually without ongoing fees.
+
+**Technical Deep Dive**
+
+Arweave employs a novel blockchain-like data structure called the "blockweave," where each new block cryptographically references a randomly selected previous block, enforcing permanent data storage. The consensus mechanism, **Succinct Proofs of Random Access (SPoRA)**, incentivizes miners economically to store and retrieve historical data indefinitely after a single upfront payment, positioning Arweave as an ideal archival-quality storage solution.
+
+**Content Addressing and CID Considerations**
+
+Like Irys, Arweave does not inherently use content-addressable identifiers. Instead, data transactions receive non-deterministic transaction IDs, making Arweave incompatible with IPFS's CID-based addressing model by default. However, Arweave provides an internal tagging mechanism (key-value pairs attached to each transaction), enabling developers to map IPFS CIDs to Arweave transactions. These tags can be queried via GraphQL, providing a practical solution for developers requiring CID-based addressing on Arweave.
+
+Though tags effectively bridge IPFS and Arweave, developers must implement custom logic to ensure content integrity and consistency due to the lack of built-in verification against CIDs.
+
+---
+
+## Summary for OIP Developers
+
+When selecting decentralized storage for OIP-based applications, consider the following:
+
+- **Filecoin** is recommended as it closely integrates with IPFS, providing secure, verifiable, and persistent storage. Fleek and Storacha offer user-friendly platforms for seamless Filecoin integration, catering to diverse application needs.
+
+- **Irys** offers excellent performance and cost-effectiveness with built-in computation capabilities, ideal for data-intensive use cases. However, it requires CID integration through transaction tagging and lacks built-in CID verification.
+
+- **Arweave** provides unmatched archival storage and data permanence with upfront-only payments. While it doesn't inherently use CID addressing, transaction tagging can facilitate CID-based retrieval with custom implementation.
+
+Ultimately, OIP provides flexibility to integrate these decentralized storage solutions individually or combined, ensuring developers choose solutions aligned with their application's performance, cost, permanence, and content-addressing requirements.

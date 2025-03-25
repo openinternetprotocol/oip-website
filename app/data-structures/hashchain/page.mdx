@@ -1,26 +1,14 @@
 import { Bleed } from 'nextra/components'
 
-# Hashchain
+# Hash chain
 
 In the Open Internet Protocol (OIP), data integrity and verifiable history are fundamental. To achieve this, OIP uses a structure called a **Hashchain**. A Hashchain is a sequential chain of content states, each referencing the previous state through a unique content identifier (CID).
 
-## Concept of a Hashchain
+## Concept of a Hash chain
 
-A Hashchain creates an immutable sequence of content updates by linking each new update to the previous update using a unique content identifier (CID). This forms an unalterable history, ensuring data authenticity and enabling easy verification of historical changes. 
+A Hash chain creates an immutable sequence of content updates by linking each new update to the previous update using a unique content identifier (CID). This forms an unalterable history, ensuring data authenticity and enabling easy verification of historical changes. 
 
-Each update contains a special key, `previousCID`, which holds the CID (Content Identifier) of the preceding update. This establishes a tamper-proof chronological order:
-
-```
-Update 1 (Genesis) - CID: Qmabc... (previousCID: null)
-    ↓
-Update 2 - CID: Qmdef... (previousCID: Qmabc..., owner: 0xOwnerA, blockHeight: 100)
-    ↓
-Update 2 - CID: Qmxyz... (previousCID: Qmabc...)
-    ↓
-Update 3 - CID: Qmdef... (previousCID: Qmabc...)
-```
-
-This structure resembles a Git commit history, allowing for transparent tracking of changes and versions.
+Each update contains a special key, `previousCID`, which holds the CID (Content Identifier) of the preceding update. This establishes a tamper-proof chronological order. This structure resembles a Git commit history, allowing for transparent tracking of changes and versions.
 
 ## Forks and Canonical Truth
 
@@ -30,22 +18,35 @@ Since OIP allows decentralized, distributed updates, forks may naturally occur. 
 - The state with the highest confirmed block height is considered canonical.
 - Nodes can reject updates if the associated block height surpasses a certain threshold or if the timestamp associated with that block height exceeds an allowed epoch duration. Due to varying block times across different blockchains, this mechanism helps maintain consistency and security.
 
-Consider the following example represented visually with a gitgraph:
+Consider the following example represented visually with a Mermaid diagram:
 
-<Bleed full>
+ <Bleed full>
 ```mermaid
-gitGraph
-    commit id: "Qmabc..." tag:"Owner: 0xA123" 
-    commit id:"Qmxyz..." tag:"Owner: 0xOwner1"
-    branch fork1
-    checkout fork1
-    commit id: "Qm123... (Block 1234)" tag:"Owner: 0x123"
-    commit id: "Qm456... (Block 1235)" tag:"Owner: 0x123"
-    checkout main
-    commit id: "Qm789... (Block 1236)" tag:"Owner: 0x456"
-    merge fork1
+---
+title: Block Height and Canonical Chain for an OIP ID within an OIP Application
+---
+graph RL;
+
+  u6["Update 3 (Canonical Chain)<br/>Block Height: 106<br/>previousCID: cid(u2)<br/>Owner: john.eth"] -----> 
+  u2["Update 2<br/>Block Height: 102<br/>previousCID: cid(u1)<br/>Owner: neil.eth"];
+
+  u3["Update 3<br/>Block Height: 103<br/>previousCID: cid(u2)<br/>Owner: lois.eth"] --> 
+  u2;
+
+  u2 --> 
+  u1["Update 1<br/>Block Height: 101<br/>previousCID: cid(genesis)<br/>Owner: neil.eth"];
+
+  u1 --> 
+  genesis["Genesis Update<br/>Block Height: 100<br/>previousCID: null<br/>Owner: neil.eth"];
+
+  u5["Update 5<br/>Block Height: 105<br/>previousCID: cid(u4)<br/>Owner: lois.eth"] --> 
+  u4["Update 4<br/>Block Height: 104<br/>previousCID: cid(u3)<br/>Owner: lois.eth"];
+
+  u4 --> 
+  u3;
 ```
 </Bleed>
+<center><small>In the example above, we showcase the transfer of ownership from `neil.eth` to `lois.eth` and finally to `john.eth`. The canonical chain is determined by the highest block height, which in this case is `106`. This means that john.eth has decided to fork from `Update 2` and create a new canonical chain, essentially removing `Update 3 (block 103)`, `Update 4 (block 104)`, and `Update 5 (block 105)` from the canonical chain.</small></center>
 
 In this diagram:
 - Commits represent state updates, each identified by their CID.
@@ -54,7 +55,7 @@ In this diagram:
 
 ## Use Cases and Visualization
 
-Hashchains allow applications built on OIP to visualize the entire state history and detect divergences quickly. Apps can visualize changes per OIP ID, owner (EVM address), application-specific data, and identify the canonical state clearly. This functionality can be especially useful for auditing, moderation, and transparency.
+Hash chains allow applications built on OIP to visualize the entire state history and detect divergences quickly. Apps can visualize changes per OIP ID, owner (EVM address), application-specific data, and identify the canonical state clearly. This functionality can be especially useful for auditing, moderation, and transparency.
 
 ## Best Practices
 - Always verify `previousCID` references to ensure integrity.

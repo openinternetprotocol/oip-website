@@ -59,7 +59,41 @@ However, tokenized accounts do not affect the underlying account functionality, 
 As of now, tokenized accounts are temporarily disabled in the OIP reference implementation. You can read more about this feature in the [Safety Nets](/safety-nets) section.
 
 ## Blockchain Integration
-OIP accounts are natively integrated with Ethereum and other EVM-compatible blockchains, leveraging smart contracts for identity management, delegation, and ownership transfer. This integration ensures secure, transparent, and interoperable account management across decentralized applications, enabling seamless user experiences and robust identity verification mechanisms. For more information on the smart contracts powering OIP accounts, refer to the [Smart Contracts](/smart-contracts) section. 
+OIP accounts are deployed on [Base](https://base.org), an OP Stack L2, which inherits Ethereum's security, leveraging smart contracts for identity management, delegation, and ownership transfer. This integration ensures secure, transparent, and interoperable account management across decentralized applications, enabling seamless user experiences and robust identity verification mechanisms. For more information on the smart contracts powering OIP accounts, refer to the [Smart Contracts](/smart-contracts) section. 
+
+### Zooko's Triangle
+Zooko's triangle is a trilemma of three properties that some people consider desirable for names of participants in a network protocol:
+
+<center><img src='/zookos_triangle.png' style={{maxWidth: '300px', borderRadius: '8px', marginTop: '16px'}}></img><br></br><small>Image Source: [Wikipedia](https://en.wikipedia.org/wiki/Zooko%27s_triangle)</small></center>
+
+- **Human-meaningful**: Meaningful and memorable (low-entropy) names are provided to the users
+- **Secure**: The amount of damage a malicious entity can inflict on the system should be as low as possible
+- **Decentralized**: Names correctly resolve to their respective entities without the use of a central authority or service
+
+
+OIP accounts solve Zooko's triangle, a fundamental principle in decentralized systems that states an identifier can have at most two of the following properties: human-meaningful, decentralized, and secure. In the case of OIP accounts:
+- **Human-meaningful:** Achieved through usernames, allowing users to interact intuitively.
+- **Secure:** A naming system on Base fulfills the secure property of Zooko’s triangle because once state roots are posted to Ethereum L1, they become tamper-proof and immutable. Damaging the system would require an L1 reorg, which is prohibitively costly under Ethereum’s PoS consensus.
+- **Decentralized:** OIP accounts are decentralized, as they are managed by smart contracts on Base, an OP Stack L2, ensuring that no single entity controls the account system.
+
+## Best Practices
+
+### Routes
+
+When building applications on OIP, it's important to consider how usernames interact with application routes. Currently, OIP does not maintain a blacklist of reserved usernames, which means users could potentially register names that conflict with common application routes (e.g., "blog", "faq", "settings").
+
+To prevent routing conflicts and ensure consistent user experience, applications should implement one of these approaches:
+
+1. **Username Prefix:** Use a consistent prefix for all username routes, such as:
+   - `/u/username` 
+   - `/@username`
+
+2. **Separate Namespace:** Keep application routes in a different namespace:
+   - `/app/settings`
+   - `/pages/faq`
+   - `/content/blog`
+
+Without such separation, users might register usernames like "home" or "about", potentially creating confusion or conflicts with your application's navigation structure. While OIP doesn't currently enforce username restrictions, implementing a clear routing strategy in your application is crucial for maintainable user experiences.
 
 
 ---

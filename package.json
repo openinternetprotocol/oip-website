@@ -11,7 +11,7 @@
   "dependencies": {
     "@tabler/icons": "^3.29.0",
     "@tabler/icons-react": "^3.31.0",
-    "next": "15.1.6",
+    "next": "^15.2.4",
     "next-video": "^2.1.0",
     "nextra": "^4.2.3",
     "nextra-theme-docs": "^4.2.3",

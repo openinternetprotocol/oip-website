@@ -12,7 +12,7 @@ export default {
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
   hashchain: {
-    title: 'Hashchain',
+    title: 'Hash chain',
     theme: { toc: false, timestamp: false, breadcrumb: false, pagination: false },
   },
 };

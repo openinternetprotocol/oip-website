@@ -1,12 +1,25 @@
+import { Callout } from 'nextra/components'
+
 # Apps
-This page is currently being finalized. Please check back later for updates.
+Applications built on the Open Internet Protocol (OIP) leverage a variety of components and standards to deliver decentralized, resilient, and user-centric experiences. This section provides an overview of key elements that developers should consider when building applications on OIP.
+
+
+<Callout type="info">
+Parts of the Portrait Protocol are currently being migrated to the Open Internet Protocol and planned to complete in Q2 2025. Read more about the migration [here](https://portrait.so).
+</Callout>
+
+<Callout type="default">
+OIP is currently in the early stages of development. If you are a developer interested in building applications on OIP, please reach out to the core development team for guidance and support.
+</Callout>
 
 ## Using the OIPAppRegistry
-
-Developers building applications on OIP should reference the `OIPAppRegistry` smart contract to access:
+If you are a developer building on OIP, you can access the `OIPAppRegistry` smart contract to register your application and obtain a unique identifier. This registry provides versioning and messaging standards, ensuring consistent interpretation and encoding of messages across the network. Developers building applications on OIP should reference the `OIPAppRegistry` smart contract to access:
 
 - **Application Identifiers:** Each registered application receives a unique, incremental numeric ID paired with a human-readable string identifier. These IDs provide deterministic, collision-free identification across the OIP network.
 
 - **Versioning and Messaging Standards:** Every application entry includes versioning linked explicitly to a documentation resource (such as a URL or a CID containing natural-language specifications). This ensures consistent interpretation and encoding of messages, enhancing interoperability between applications.
 
-- **Content Topics and Auto-Sharding:** OIP employs Waku’s auto-sharding mechanism to route messages efficiently. Content topics must include both the application name and version, formatted as `/application-name/version/content-topic-name/encoding`. Developers should use a `_testnet` postfix during development to maintain separation from production traffic.
+- **Content Topics and Auto-Sharding:** OIP employs Waku’s auto-sharding mechanism to route messages efficiently. Content topics must include both the application name and version, formatted as `/application-name/version/content-topic-name/encoding`. Developers should use a `oip_testnet_` postfix during development to maintain separation from production traffic.
+
+To learn more about the `OIPAppRegistry` and its usage, refer to the [Smart Contracts](/smart-contracts) section.
+
