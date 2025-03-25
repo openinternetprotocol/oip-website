@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build && pnpm postbuild",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind && cp -r ./public/_pagefind ./out"
   },
   "dependencies": {
     "@tabler/icons": "^3.29.0",
